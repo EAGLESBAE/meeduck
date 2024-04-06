@@ -12,6 +12,11 @@ app.get('/', (req, res) => {
 });
 
 // test1 페이지
+app.get('/movie', (req, res) => {
+  res.sendFile(path.join(__dirname, '', 'movie.html'));
+});
+
+// test1 페이지
 app.get('/node1', (req, res) => {
   res.sendFile(path.join(__dirname, '', 'node1.html'));
 });
