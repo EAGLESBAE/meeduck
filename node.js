@@ -34,7 +34,7 @@ app.get('*', (req, res) => {
 // 서버를 지정한 포트에서 실행합니다.
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/`);
+  console.log(`Server is running on http://13.239.147.201:${PORT}/`);
 });
 
 const wss = new WebSocket.Server({ port: 8080 });
