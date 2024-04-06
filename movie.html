@@ -2,28 +2,48 @@
 <html>
 <head>
   <title>동영상 플레이</title>
-  <style>
-      #player {
-          width: 100%;
-          height: 100%;
-      }
-  </style>
 </head>
 <body>
-    <div id="player" width="100%" height="100%"></div> 
-  
+    <div id="player"></div> 
+
     <script>
-      var player = document.getElementById('player');
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+      var videos = [
+        { id: 'VuzwkVUUHpQ', autoplay: true }, // 첫 번째 동영상 정보
+        { id: 'PVLgn6EKEko', autoplay: true } // 두 번째 동영상 정보
+        // 원하는 만큼 동영상 정보를 추가할 수 있습니다.
+      ];    
+    
+      function onYouTubeIframeAPIReady() {
+        // 초기에 첫 번째 동영상 정보를 이용하여 플레이어를 생성합니다.
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: videos[0].id, // 첫 번째 동영상 ID
+          playerVars: {
+            'autoplay': videos[0].autoplay ? 1 : 0, // 조건에 따른 자동 재생 설정
+            'controls': 0,
+            'modestbranding': 1,
+            'rel': 0,
+            'loop': 1,
+            'fs': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
   
-      // Check if the browser supports the Fullscreen API
-      if (player.requestFullscreen) {
-          player.requestFullscreen();
-      } else if (player.mozRequestFullScreen) { /* Firefox */
-          player.mozRequestFullScreen();
-      } else if (player.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-          player.webkitRequestFullscreen();
-      } else if (player.msRequestFullscreen) { /* IE/Edge */
-          player.msRequestFullscreen();
+      function onPlayerReady(event) {
+        event.target.playVideo();
+        event.target.mute();
+        event.target.setPlaybackQuality('hd1080');
       }
   
       const socket = new WebSocket('ws://13.239.147.201:8080');
@@ -31,15 +51,12 @@
       socket.addEventListener('message', function (event) {
         console.log('다른 형식의 메시지:', event.data);
   
-        // 서버로부터 데이터를 받으면 해당 데이터로 페이지 업데이트
         if (event.data === '1') {
-          // YouTube 비디오 ID를 여기에 삽입하세요.
-          const videoId = 'VIDEO_ID_HERE';
-          player.innerHTML = '<iframe style="border: 0;" src="https://www.youtube-nocookie.com/embed/VuzwkVUUHpQ?autoplay=1&loop=1" allowfullscreen></iframe>';
+            player.loadVideoById(videos[0].id);
+            player.playVideo();
         } else if (event.data === '2') {
-          // 두 번째 YouTube 비디오 ID를 여기에 삽입하세요.
-          const videoId = 'SECOND_VIDEO_ID_HERE';
-          player.innerHTML = '<iframe style="border: 0;" src="https://www.youtube-nocookie.com/embed/PVLgn6EKEko?autoplay=1&loop=1" allowfullscreen></iframe>';
+            player.loadVideoById(videos[1].id);
+            player.playVideo();
         }
       });
     </script>
