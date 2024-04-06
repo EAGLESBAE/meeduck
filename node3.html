@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>웹 페이지 2</title>
+</head>
+<body>
+  <button id="button">다른 웹 페이지에 메시지 보내기</button>
+
+  <script> 
+    const socket = new WebSocket('ws://localhost:8080');
+    const msg = '2';
+
+    document.getElementById('button').addEventListener('click', function () {
+      // 버튼 클릭 시 메시지를 서버로 전송
+      socket.send(msg.toString());
+    });
+  </script>
+</body>
+</html>
