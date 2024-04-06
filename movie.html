@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>동영상 플레이</title>
+</head>
+<body>
+    <div id="player"></div> 
+  
+    <script>
+      const playerDiv = document.getElementById('player');
+  
+      const socket = new WebSocket('ws://13.239.147.201:8080');
+  
+      socket.addEventListener('message', function (event) {
+        console.log('다른 형식의 메시지:', event.data);
+  
+        // 서버로부터 데이터를 받으면 해당 데이터로 페이지 업데이트
+        if (event.data === '1') {
+          // YouTube 비디오 ID를 여기에 삽입하세요.
+          const videoId = 'VIDEO_ID_HERE';
+          playerDiv.innerHTML = '<iframe width="560" height="315" src="https://youtu.be/VuzwkVUUHpQ" + " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        } else if (event.data === '2') {
+          // 두 번째 YouTube 비디오 ID를 여기에 삽입하세요.
+          const videoId = 'SECOND_VIDEO_ID_HERE';
+          playerDiv.innerHTML = '<iframe width="560" height="315" src="https://youtu.be/RmNq4d9QqU4" + " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        }
+      });
+    </script>
+</body>
+</html>
