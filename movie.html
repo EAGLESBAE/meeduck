@@ -18,11 +18,11 @@
         if (event.data === '1') {
           // YouTube 비디오 ID를 여기에 삽입하세요.
           const videoId = 'VIDEO_ID_HERE';
-          playerDiv.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/VuzwkVUUHpQ?autoplay=1"></iframe>';
+          playerDiv.innerHTML = '<iframe style="border: 0;" src="https://www.youtube-nocookie.com/embed/VuzwkVUUHpQ?rel=0&modestbranding=1&autoplay=1&loop=1" allowfullscreen></iframe>';
         } else if (event.data === '2') {
           // 두 번째 YouTube 비디오 ID를 여기에 삽입하세요.
           const videoId = 'SECOND_VIDEO_ID_HERE';
-          playerDiv.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/PVLgn6EKEko?autoplay=1"></iframe>';
+          playerDiv.innerHTML = '<iframe style="border: 0;" src="https://www.youtube-nocookie.com/embed/PVLgn6EKEko?rel=0&modestbranding=1&autoplay=1&loop=1" allowfullscreen></iframe>';
         }
       });
     </script>
